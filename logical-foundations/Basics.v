@@ -524,3 +524,46 @@ Proof.
   - intros H. reflexivity. *)
 Qed.
 
+Inductive bin : Type :=
+  | Z
+  | A (n: bin)
+  | B (n: bin).
+
+Fixpoint incr (m: bin) : bin :=
+  match m with
+  | Z => B (Z)
+  | A n => B n
+  | B n => A (incr n)
+  end.
+
+Example test_incr1: incr Z = B Z.
+Proof. simpl. reflexivity. Qed.
+Example test_incr2: incr (B Z) = A (B Z).
+Proof. simpl. reflexivity. Qed.
+Example test_incr3: incr (A (B Z)) = B (B Z).
+Proof. simpl. reflexivity. Qed.
+Example test_incr4: incr (A (A (B Z))) = B (A (B Z)).
+Proof. simpl. reflexivity. Qed.
+Example test_incr5: incr (B (B (B Z))) = A (A (A (B Z))).
+Proof. simpl. reflexivity. Qed.
+
+Fixpoint bin_to_nat (m: bin) : nat :=
+  match m with
+  | Z   => 0
+  | B Z => 1
+  | B n => 1 + (2 * bin_to_nat n)
+  | A n => 2 * bin_to_nat n
+  end.
+
+Example test_bin_to_nat1: bin_to_nat Z = 0.
+Proof. simpl. reflexivity. Qed.
+Example test_bin_to_nat2: bin_to_nat (B Z) = 1.
+Proof. simpl. reflexivity. Qed.
+Example test_bin_to_nat3: bin_to_nat (A (B Z)) =2.
+Proof. simpl. reflexivity. Qed.
+Example test_bin_to_nat4: bin_to_nat (B (B Z)) = 3.
+Proof. simpl. reflexivity. Qed.
+Example test_bin_to_nat5: bin_to_nat (B (A (B Z))) = 5.
+Proof. simpl. reflexivity. Qed.
+Example test_bin_to_nat6: bin_to_nat (A (A (A (B Z)))) = 8.
+Proof. simpl. reflexivity. Qed.

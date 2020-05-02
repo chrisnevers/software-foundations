@@ -7,3 +7,5 @@ I completed while reading the [Software Foundation](https://softwarefoundations.
 
   * ### Functional Programming in Coq
     - `Basics.v`
+  * ### Proof by Induction
+    - `Induction.v`
