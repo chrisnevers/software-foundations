@@ -471,3 +471,56 @@ Proof.
   - reflexivity.
 Qed.
 
+(*
+  This function is fine but coq thinks
+  it will not terminate on all inputs.
+Fixpoint does_not_term n :=
+  match n with
+  | O => O
+  | m => does_not_term ( m - 1)
+  end.
+*)
+
+Theorem identity_fn_applied_twice :
+  forall (f : bool -> bool),
+  (forall(x : bool), f x = x) ->
+  forall(b : bool), f (f b) = b
+.
+Proof.
+  intros f x H.
+  rewrite x.
+  rewrite x.
+  reflexivity.
+Qed.
+
+Theorem negation_fn_applied_twice :
+  forall (f: bool -> bool),
+  (forall (x : bool), f x = negb x) ->
+  forall (b : bool), f (f b) = b.
+Proof.
+  intros f x H.
+  rewrite -> x.
+  rewrite -> x.
+  rewrite <- negb_involutive.
+  reflexivity.
+Qed.
+
+Theorem andb_eq_orb :
+  forall b c : bool,
+  andb b c = orb b c ->
+  b = c.
+Proof.
+  intros [] c.
+  - destruct c.
+    + intros H. reflexivity.
+    + simpl. intros H. rewrite H. reflexivity.
+  - destruct c.
+    + simpl. intros H. rewrite H. reflexivity.
+    + intros H. reflexivity.
+  (* intros [] [].
+  - intros H. reflexivity.
+  - simpl. intros H. rewrite H. reflexivity.
+  - simpl. intros H. rewrite H. reflexivity.
+  - intros H. reflexivity. *)
+Qed.
+
