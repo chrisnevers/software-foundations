@@ -9,3 +9,9 @@ I completed while reading the [Software Foundation](https://softwarefoundations.
     - `Basics.v`
   * ### Proof by Induction
     - `Induction.v`
+
+# Building the project
+To generate the Makefile, used to build the project, run the following from
+each subdirectory.
+
+    coq_makefile -f _CoqProject *.v -o Makefile
